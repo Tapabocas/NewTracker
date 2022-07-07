@@ -5,12 +5,9 @@ def main():
   import image_slicer
   import imagehash
   from PIL import Image
-  import base64
   import os
   import time
-  import datetime
   import threading
-  import logging
   import shutil
 
   hashmatrix=[]
@@ -24,12 +21,12 @@ def main():
     ret, imagen = captura.read()
     if ret:
       #cv2.imshow('video', imagen)   #no necesito ver la imagen completa, but la imagen compuesta de las pieces.
-      time.sleep(8)
+      time.sleep(0.5)
       #cv2. imwrite(os.path.join(path , "frames.jpg" , imagen))
       cv2.imwrite("frames.jpg" , imagen)
       captura.set(1, count)
       imagenesPartidas=image_slicer.slice("frames.jpg",16)
-      time.sleep(7)
+      time.sleep(0.5)
       for i in range (1,5):
         for j in range (1,5):
         
@@ -69,5 +66,6 @@ def main():
 
 if __name__=='__main__':
     main()
+    time.sleep(2)
     
 
