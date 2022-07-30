@@ -1,5 +1,5 @@
 #guarda las imagenes en A y les asigna un hash. el hash se convierte a tipo string y se guarda en el array hashmatrix.
-
+# what if saco el hash DESPUÉS de que las imagenes sean distintas..  . . . ...............
 import cv2
 import numpy as np
 import image_slicer
@@ -9,18 +9,19 @@ import os
 import time
 import threading
 import shutil
+
+hashmatrixA=[]
+#hashmatrixB=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p']
+hashmatrixB=[]
 def main():
-  #tiempo=2
-  hashmatrixA=[]
-  hashmatrixB=[]
+
+  #path = r'D:\\Desktop\\NewTracker-Funciona_Sin_Threads\\Be4'
   path = r'C:\\Users\\Camilo Palacios\\Desktop\\NewTracker-main\\Be4'
 
 
 
-
-
   def paso1():
-    
+    print("Inicio del paso 1")
     os.chdir(path)
     captura = cv2.VideoCapture(0)
     while (captura.isOpened()):
@@ -32,64 +33,96 @@ def main():
           for j in range (1,5):
             hashA=imagehash.average_hash(Image.open(f'frames_0{i}_0{j}.png'))
             hashmatrixA.append(str(hashA))
-        if i==j==4:
-          print(hashmatrixA)
-          hashmatrixA.clear() 
-          time.sleep(8)
-          paso2()
+      
+        #if i==j==4:
+        #  print("HASHMATRIX A :")
+        #  print(hashmatrixA)
+        #  print(len(hashmatrixA))
+          #hashmatrixA.clear()
           
+        #  print(len(hashmatrixB))
+        print("antes de mimir")
+        time.sleep(8)
+        print("despues de mimir")
+
+        print("Sigue el paso 2")
+        paso2()
+        #else:
+        #  continue
           
-        else:              
-          continue
+          #comparar aqui? si son iguales ejecutar funcion XX , si no .. pass (?)
+
+        
 
   def paso2():
+    print("Este es el paso 2")
     for i in range (1,5):
       for j in range (1,5):
-        a=f'frames_0{i}_0{j}.png'
+        #a=f'D:\\Desktop\\NewTracker-Funciona_Sin_Threads\\Be4\\frames_0{i}_0{j}.png'
+        #b=f'D:\\Desktop\\NewTracker-Funciona_Sin_Threads\\After\\frames_0{i}_0{j}.png'
+        a=f'C:\\Users\\Camilo Palacios\\Desktop\\NewTracker-main\\Be4\\frames_0{i}_0{j}.png'
         b=f'C:\\Users\\Camilo Palacios\\Desktop\\NewTracker-main\\After\\frames_0{i}_0{j}.png'
         shutil.copy(a,b)
-    os.chdir(r'C:\\Users\\Camilo Palacios\\Desktop\\NewTracker-main\\After')
-    for i in range (1,5):
-      for j in range (1,5):    
-        os.chdir(r'C:\\Users\\Camilo Palacios\\Desktop\\NewTracker-main\\After')
-        hashB=imagehash.average_hash(Image.open(f'frames_0{i}_0{j}.png'))
-        hashmatrixB.append(str(hashB))
-    
-    if j==i==4:
+    #os.chdir(r'D:\\Desktop\\NewTracker-Funciona_Sin_Threads\\After')
+    #for i in range (1,5):
+    #  for j in range (1,5):    
+        #hashB=imagehash.average_hash(Image.open(f'frames_0{i}_0{j}.png'))
+        #hashmatrixB.append(str(hashB))
+        
+        
+    if i==j==4:
+
+      print("HASHMATRIX B :")
       print(hashmatrixB)
-      hashmatrixB.clear()
-      os.chdir(path)
-
-  paso1()
-
-  #def paso3():
-
-    #En realidad es el paso 2, pero continuemos
-    #Sacar hash solamente a las miágenes de la carpeta B. (En el paso 2) , para que un array de hashes generado junto con las imagenes en A, se borre cada vez y se *compare*.
-   # print("Si.")
-    #para compararlos, aquí se traen ambos arreglos y se comparan elemento por elemento.. dependiendo de cuales sean disitntos, se encierra o no.
-    #for i in range (1,16):
-     #   if hashmatrixA(i)==hashmatrixB(i):
-      #    print("Son iguales")
-       # else:
-        #  print("Son re diferentes")
-          
+      print("Previo al paso 3")
+      time.sleep(2)
+      paso3()
+      
+    
+    #ac es donde deben compararse.
+    
+  def paso3():
+    print("Inicio del paso 3")
+    for i in range (0,16):
+      #INTRODUCIR LOS HASHES EN CADA ARRAY, EN CARPETAS DIFERENTES.
+      #HASHMATRIX DE LAS IMAGENES EN LA PRIMERA CARPETA
+      #TRAERLAS DEL PATH BE4
+      
 
 
-  #thread=threading.Thread(target=paso1)
-  #thread.start() 
-  #thread2=threading.Thread(target=paso2)
-  #thread2.start() 
-  #thread3=threading.Thread(target=paso3)
-  #thread3.start() 
+      a=f'C:\\Users\\Camilo Palacios\\Desktop\\NewTracker-main\\Be4\\frames_0{i}_0{j}.png'
+
+
+
+      #HASHMATRIX DE LAS IMAGENES EN LA SEGUNDA CARPETA
+      #TRAERLAS DEL PATH AFTER
+      
+
+
+
+      #COMPARAR AMBAS MATRIX. 
+
+
+      if hashmatrixA[i] == hashmatrixB[i]:
+        print("esta es igual")
+      else:
+       print("esta nokz")
+
+      if i==15:
+    
+        hashmatrixB.clear()
+        hashmatrixA.clear()
+        paso1()
+      #  
+      #  os.chdir(path)
+      #  print("and finally 6th")
+
 
 
 if __name__=='__main__':
-    
+
     print("Si, si ..")
     #time.sleep(2)
     print("Si, si ..again")
     main()
-    print("Y esto?")
-
-
+    print("Y esto?")#guarda las imagenes en A y les asigna un hash. el hash se convierte a tipo string y se guarda en el array hashmatrix.

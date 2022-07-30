@@ -7,12 +7,11 @@ def main():
             print("Esto deberia esperar 8 segundos")
             time.sleep(8)
             print("Ya pasaron 8s")
-        
-        thread=threading.Thread(target=esperar8)
-        thread.start()
+            
+    thread=threading.Thread(target=esperar8)
+    thread.start()   
+
                 
 
 if __name__=='__main__':
     main()
-    time.sleep(2)
-    print("Esto deberia imprimirse 2 s despues de que corra")
